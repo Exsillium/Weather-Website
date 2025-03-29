@@ -66,8 +66,8 @@ function setupEventListeners() {
 	document.getElementById("manual-input").addEventListener("input", (e) => {
 		clearTimeout(timeout);
 		timeout = setTimeout(() => {
-			const [city, country] = e.target.value.split(",").map((s) => s.trim());
-			if (city) handleWeatherSearch(city, country);
+			const city = e.target.value
+			if (city) handleWeatherSearch(city, "uk");
 		}, 3000);
 	});
 
@@ -78,8 +78,10 @@ function setupEventListeners() {
 	});
 }
 
-async function handleWeatherSearch(city, country = "") {
+async function handleWeatherSearch(city) {
 	try {
+		//get country code
+		country = await get_country_code(city);
 		const data = await fetchWeather(city, country);
 		showWeather(data);
 		updateBackground(data.weather[0].main);
