@@ -5,20 +5,29 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Weather App</title>
 		<link rel="stylesheet" href="styles.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 	</head>
 	<body>
 		<div class="container">
 			<div class="header">
-				<h1>Weather Finder</h1>
-				<button id="theme-toggle">🌓 Toggle Theme</button>
+				<h1><i class="fas fa-cloud-sun"></i> Weather Finder</h1>
+				<button id="theme-toggle"><i class="fas fa-moon"></i> Toggle Theme</button>
 			</div>
 
 			<div class="search-container">
 				<select id="city-select">
 					<option value="">Select a City</option>
 				</select>
-				<input type="text" id="manual-input" placeholder="City" />
-				<button id="lcation-button">locate</button>
+				<input type="text" id="manual-input" placeholder="Enter city name..." />
+				<button id="lcation-button"><i class="fas fa-location-arrow"></i></button>
+			</div>
+
+			<!-- last serach section -->
+			<div class="recent-searches hidden" id="recent-searches">
+				<h3><i class="fas fa-history"></i> Recent Searches</h3>
+				<ul id="recent-searches-list">
+					<!-- added with javascript -->
+				</ul>
 			</div>
 
 			<div id="weather-display" class="weather-card hidden">
@@ -28,8 +37,8 @@
 					<p class="temperature"></p>
 					<p class="description"></p>
 					<div class="details">
-						<p>Humidity: <span class="humidity"></span>%</p>
-						<p>Wind: <span class="wind"></span> m/s</p>
+						<p><i class="fas fa-tint"></i> Humidity: <span class="humidity"></span>%</p>
+						<p><i class="fas fa-wind"></i> Wind: <span class="wind"></span> m/s</p>
 					</div>
 				</div>
 			</div>
