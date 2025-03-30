@@ -1,4 +1,3 @@
-// https://api.openweathermap.org/data/2.5/weather?q=Riyadh,sa&appid=505a3eec3e074cc74ceda32f6b638955&units=metric
 
 const predefinedCities = [
 	{ city: "New York", country: "US" },
@@ -46,7 +45,13 @@ const predefinedCities = [
 	// Check for last search
 	const lastSearch = getLastSearch();
 	if (lastSearch) {
-		handleWeatherSearch(lastSearch.city, lastSearch.country);
+		if (lastSearch.city) {
+			handleWeatherSearch(lastSearch.city, lastSearch.country);
+		}
+		if (lastSearch.lat && lastSearch.lon) {
+			handleWeatherSearch('',lastSearch.lat, lastSearch.lon);
+		}
+		
 	} else {
 		showGreeting();
 	}
@@ -66,8 +71,8 @@ function setupEventListeners() {
 	document.getElementById("manual-input").addEventListener("input", (e) => {
 		clearTimeout(timeout);
 		timeout = setTimeout(() => {
-			const [city, country] = e.target.value.split(",").map((s) => s.trim());
-			if (city) handleWeatherSearch(city, country);
+			const city = e.target.value
+			if (city) handleWeatherSearch(city);
 		}, 3000);
 	});
 
@@ -76,14 +81,35 @@ function setupEventListeners() {
 		const newTheme = toggleThemeUI();
 		saveTheme(newTheme);
 	});
+
+	document.getElementById("lcation-button").addEventListener("click", () => {
+	navigator.geolocation.getCurrentPosition(position => {
+		const lat = position.coords.latitude;
+		const lon = position.coords.longitude;
+		handleWeatherSearch('',lat, lon);
+
+		
+		
+	});
+	});
 }
 
-async function handleWeatherSearch(city, country = "") {
+async function handleWeatherSearch(city ='',lat = '', lon ='' ) {
 	try {
-		const data = await fetchWeather(city, country);
+		let data;
+		//get country code
+		if (city){
+			let country = await get_country_code(city);
+			data = await fetchWeather(city, country);
+			saveLastSearch(city);
+
+		}
+		else if (lat && lon){
+			data =  await  fetchWeather("","",lat, lon);
+			saveLastSearch("",lat, lon);
+		}
 		showWeather(data);
 		updateBackground(data.weather[0].main);
-		saveLastSearch(city, country);
 	} catch (error) {
 		showError(error.message);
 	}
