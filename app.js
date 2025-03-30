@@ -1,4 +1,3 @@
-
 const predefinedCities = [
 	{ city: "New York", country: "US" },
 	{ city: "Los Angeles", country: "US" },
@@ -49,9 +48,8 @@ const predefinedCities = [
 			handleWeatherSearch(lastSearch.city, lastSearch.country);
 		}
 		if (lastSearch.lat && lastSearch.lon) {
-			handleWeatherSearch('',lastSearch.lat, lastSearch.lon);
+			handleWeatherSearch("", lastSearch.lat, lastSearch.lon);
 		}
-		
 	} else {
 		showGreeting();
 	}
@@ -71,9 +69,9 @@ function setupEventListeners() {
 	document.getElementById("manual-input").addEventListener("input", (e) => {
 		clearTimeout(timeout);
 		timeout = setTimeout(() => {
-			const city = e.target.value
+			const city = e.target.value;
 			if (city) handleWeatherSearch(city);
-		}, 3000);
+		}, 500);
 	});
 
 	// Theme toggle
@@ -83,30 +81,26 @@ function setupEventListeners() {
 	});
 
 	document.getElementById("lcation-button").addEventListener("click", () => {
-	navigator.geolocation.getCurrentPosition(position => {
-		const lat = position.coords.latitude;
-		const lon = position.coords.longitude;
-		handleWeatherSearch('',lat, lon);
-
-		
-		
-	});
+		navigator.geolocation.getCurrentPosition((position) => {
+			const lat = position.coords.latitude;
+			const lon = position.coords.longitude;
+			handleWeatherSearch("", lat, lon);
+		});
 	});
 }
 
-async function handleWeatherSearch(city ='',lat = '', lon ='' ) {
+async function handleWeatherSearch(city = "", lat = "", lon = "") {
 	try {
 		let data;
 		//get country code
-		if (city){
-			let country = await get_country_code(city);
-			data = await fetchWeather(city, country);
+		if (city) {
+			// we don't need the country code anymore
+			// let country = await get_country_code(city);
+			data = await fetchWeather(city);
 			saveLastSearch(city);
-
-		}
-		else if (lat && lon){
-			data =  await  fetchWeather("","",lat, lon);
-			saveLastSearch("",lat, lon);
+		} else if (lat && lon) {
+			data = await fetchWeather("", "", lat, lon);
+			saveLastSearch("", lat, lon);
 		}
 		showWeather(data);
 		updateBackground(data.weather[0].main);

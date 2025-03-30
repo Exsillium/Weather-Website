@@ -56,7 +56,7 @@ function showError(message) {
 	const errorElement = document.getElementById("error");
 	errorElement.textContent = message;
 	errorElement.classList.remove("hidden");
-	setTimeout(() => errorElement.classList.add("hidden"), 5000);
+	setTimeout(() => errorElement.classList.add("hidden"), 3000);
 }
 
 function showGreeting() {
