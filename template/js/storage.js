@@ -4,8 +4,8 @@ function getLastSearch() {
 	return search ? JSON.parse(search) : null;
 }
 
-function saveLastSearch(city, country) {
-	localStorage.setItem("lastSearch", JSON.stringify({ city, country }));
+function saveLastSearch(city = '', lat ='', lon = '') {
+	localStorage.setItem("lastSearch", JSON.stringify({ city, lat, lon }));
 }
 
 function getTheme() {

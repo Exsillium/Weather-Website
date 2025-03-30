@@ -46,7 +46,13 @@ const predefinedCities = [
 	// Check for last search
 	const lastSearch = getLastSearch();
 	if (lastSearch) {
-		handleWeatherSearch(lastSearch.city, lastSearch.country);
+		if (lastSearch.city) {
+			handleWeatherSearch(lastSearch.city, lastSearch.country);
+		}
+		if (lastSearch.lat && lastSearch.lon) {
+			handleWeatherSearch('',lastSearch.lat, lastSearch.lon);
+		}
+		
 	} else {
 		showGreeting();
 	}
@@ -67,7 +73,7 @@ function setupEventListeners() {
 		clearTimeout(timeout);
 		timeout = setTimeout(() => {
 			const city = e.target.value
-			if (city) handleWeatherSearch(city, "uk");
+			if (city) handleWeatherSearch(city);
 		}, 3000);
 	});
 
@@ -76,16 +82,35 @@ function setupEventListeners() {
 		const newTheme = toggleThemeUI();
 		saveTheme(newTheme);
 	});
+
+	document.getElementById("lcation-button").addEventListener("click", () => {
+	navigator.geolocation.getCurrentPosition(position => {
+		const lat = position.coords.latitude;
+		const lon = position.coords.longitude;
+		handleWeatherSearch('',lat, lon);
+
+		
+		
+	});
+	});
 }
 
-async function handleWeatherSearch(city) {
+async function handleWeatherSearch(city ='',lat = '', lon ='' ) {
 	try {
+		let data;
 		//get country code
-		country = await get_country_code(city);
-		const data = await fetchWeather(city, country);
+		if (city){
+			let country = await get_country_code(city);
+			data = await fetchWeather(city, country);
+			saveLastSearch(city);
+
+		}
+		else if (lat && lon){
+			data =  await  fetchWeather("","",lat, lon);
+			saveLastSearch("",lat, lon);
+		}
 		showWeather(data);
 		updateBackground(data.weather[0].main);
-		saveLastSearch(city, country);
 	} catch (error) {
 		showError(error.message);
 	}
