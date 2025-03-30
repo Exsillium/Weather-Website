@@ -1,12 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Weather App</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <script src="app.js"></script>
-  </body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Weather App</title>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<div class="container">
+			<div class="header">
+				<h1>Weather Finder</h1>
+				<button id="theme-toggle">🌓 Toggle Theme</button>
+			</div>
+
+			<div class="search-container">
+				<select id="city-select">
+					<option value="">Select a City</option>
+				</select>
+				<input type="text" id="manual-input" placeholder="City" />
+				<button id="lcation-button">locate</button>
+			</div>
+
+			<div id="weather-display" class="weather-card hidden">
+				<div class="weather-icon"></div>
+				<div class="weather-info">
+					<h2 class="city-name"></h2>
+					<p class="temperature"></p>
+					<p class="description"></p>
+					<div class="details">
+						<p>Humidity: <span class="humidity"></span>%</p>
+						<p>Wind: <span class="wind"></span> m/s</p>
+					</div>
+				</div>
+			</div>
+
+			<div id="greeting" class="hidden">Hello in your first visit!</div>
+			<div id="error" class="error hidden"></div>
+		</div>
+
+		<script src="js/api.js"></script>
+		<script src="js/storage.js"></script>
+		<script src="js/ui.js"></script>
+		<script src="./app.js"></script>
+	</body>
 </html>
