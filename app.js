@@ -34,12 +34,14 @@ const predefinedCities = [
 // Initialize App
 (function initApp() {
 	console.log("initApp");
+	checkAuthentication();
+
 	// Setup dropdown
 	createDropdown(predefinedCities);
 
 	// Set initial theme
 	const savedTheme = getTheme();
-	if (savedTheme) document.body.classList.add(savedTheme);
+	if (savedTheme) document.body.dataset.theme = savedTheme;
 
 	// Check for last search
 	const lastSearch = getLastSearch();
@@ -56,6 +58,38 @@ const predefinedCities = [
 
 	setupEventListeners();
 })();
+
+function checkAuthentication() {
+	const userEmail = localStorage.getItem("loggedInUser");
+	if (!userEmail) {
+		window.location.replace("/login.html");
+		return;
+	}
+	if (!isAlreadyRegistered(userEmail)) {
+		localStorage.removeItem("loggedInUser");
+		window.location.replace("/register.html");
+	}
+}
+
+async function handleWeatherSearch(city = "", lat = "", lon = "") {
+	try {
+		let data;
+		//get country code
+		if (city) {
+			// we don't need the country code anymore
+			// let country = await get_country_code(city);
+			data = await fetchWeather(city);
+			saveLastSearch(city);
+		} else if (lat && lon) {
+			data = await fetchWeather("", "", lat, lon);
+			saveLastSearch("", lat, lon);
+		}
+		showWeather(data);
+		updateBackground(data.weather[0].main);
+	} catch (error) {
+		showError(error.message);
+	}
+}
 
 function setupEventListeners() {
 	// Dropdown change
@@ -88,25 +122,3 @@ function setupEventListeners() {
 		});
 	});
 }
-
-async function handleWeatherSearch(city = "", lat = "", lon = "") {
-	try {
-		let data;
-		//get country code
-		if (city) {
-			// we don't need the country code anymore
-			// let country = await get_country_code(city);
-			data = await fetchWeather(city);
-			saveLastSearch(city);
-		} else if (lat && lon) {
-			data = await fetchWeather("", "", lat, lon);
-			saveLastSearch("", lat, lon);
-		}
-		showWeather(data);
-		updateBackground(data.weather[0].main);
-	} catch (error) {
-		showError(error.message);
-	}
-}
-
-// storage functions
