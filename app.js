@@ -61,13 +61,20 @@ const predefinedCities = [
 
 function checkAuthentication() {
 	const userEmail = localStorage.getItem("loggedInUser");
+	const isGitHubPages = window.location.host.includes("github.io");
+
+	console.log(window.location.toString());
 	if (!userEmail) {
-		window.location.replace("login.html");
+		isGitHubPages
+			? window.location.replace(window.location.toString() + "login.html")
+			: window.location.replace("login.html");
 		return;
 	}
 	if (!isAlreadyRegistered(userEmail)) {
 		localStorage.removeItem("loggedInUser");
-		window.location.replace("register.html");
+		isGitHubPages
+			? window.location.replace(window.location.toString() + "register.html")
+			: window.location.replace("register.html");
 	}
 }
 
