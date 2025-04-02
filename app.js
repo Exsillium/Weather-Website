@@ -62,12 +62,12 @@ const predefinedCities = [
 function checkAuthentication() {
 	const userEmail = localStorage.getItem("loggedInUser");
 	if (!userEmail) {
-		window.location.replace("/login.html");
+		window.location.replace("login.html");
 		return;
 	}
 	if (!isAlreadyRegistered(userEmail)) {
 		localStorage.removeItem("loggedInUser");
-		window.location.replace("/register.html");
+		window.location.replace("register.html");
 	}
 }
 
