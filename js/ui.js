@@ -24,10 +24,14 @@ function showWeather(data) {
 		data.weather[0].description;
 	weatherDisplay.querySelector(".humidity").textContent = data.main.humidity;
 	weatherDisplay.querySelector(".wind").textContent = data.wind.speed;
+	weatherDisplay.querySelector(".pressure").textContent = `${data.main.pressure} hpa`;
+	weatherDisplay.querySelector('.feels-like').textContent = `${Math.round(data.main.feels_like)}°C`;
+
+	
 
 	const icon = weatherDisplay.querySelector(".weather-icon");
 	icon.textContent = getWeatherIcon(data.weather[0].id);
-}
+}	
 
 function getWeatherIcon(conditionCode) {
 	if (conditionCode >= 200 && conditionCode < 300) return "⛈️";

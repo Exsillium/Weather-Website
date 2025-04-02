@@ -121,7 +121,7 @@ function setupEventListeners() {
 		saveTheme(newTheme);
 	});
 
-	document.getElementById("lcation-button").addEventListener("click", () => {
+	document.getElementById("location-button").addEventListener("click", () => {
 		navigator.geolocation.getCurrentPosition((position) => {
 			const lat = position.coords.latitude;
 			const lon = position.coords.longitude;

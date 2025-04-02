@@ -1,66 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Weather App</title>
-		<link rel="stylesheet" href="styles.css" />
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-		/>
-	</head>
-	<body>
-		<div class="container">
-			<div class="header">
-				<h1><i class="fas fa-cloud-sun"></i> Weather Finder</h1>
-				<button id="theme-toggle">
-					<i class="fas fa-moon"></i> Toggle Theme
-				</button>
-			</div>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Forecast</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-cloud-sun"></i>
+                <h1>Weather Finder</h1>
+            </div>
+            <button id="theme-toggle" aria-label="Toggle theme">
+                <i class="fas fa-moon"></i>
+                <span class="theme-text">Dark Mode</span>
+            </button>
+            <button id="logout-button" class="logout-btn" aria-label="Logout">
+                <i class="fas fa-sign-out-alt"></i>
+                <span class="logout-text">Logout</span>
+            </button>
+        </div>
+        
 
-			<div class="search-container">
-				<select id="city-select">
-					<option value="">Select a City</option>
-				</select>
-				<input type="text" id="manual-input" placeholder="Enter city name..." />
-				<button id="lcation-button">
-					<i class="fas fa-location-arrow"></i>
-				</button>
-			</div>
-			<div id="error" class="error hidden"></div>
-			<div id="greeting" class="hidden">Hello in your first visit!</div>
+        <div class="search-container">
+            <div class="search-box">
+                <select id="city-select">
+                    <option value="">Select a City</option>
+                    <option value="New York">New York</option>
+                    <option value="London">London</option>
+                    <option value="Tokyo">Tokyo</option>
+                    <option value="Paris">Paris</option>
+                </select>
+                <div class="search-input">
+                    <input type="text" id="manual-input" placeholder="Enter city name..." />
+                    <button id="location-button" aria-label="Use current location">
+                        <i class="fas fa-location-arrow"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
 
-			<!-- last serach section -->
-			<div class="recent-searches hidden" id="recent-searches">
-				<h3><i class="fas fa-history"></i> Recent Searches</h3>
-				<ul id="recent-searches-list">
-					<!-- added with javascript -->
-				</ul>
-			</div>
+        <div id="error" class="error hidden"></div>
+        <div id="greeting" class="greeting hidden">Hello on your first visit!</div>
+        <!-- receent search -->
+        <div class="recent-searches hidden" id="recent-searches">
+            <h3><i class="fas fa-history"></i> Recent Searches</h3>
+            <ul id="recent-searches-list">
+                <!-- javascript -->
+                 <li>tanta</li>
+            </ul>
+        </div>
 
-			<div id="weather-display" class="weather-card hidden">
-				<div class="weather-icon"></div>
-				<div class="weather-info">
-					<h2 class="city-name"></h2>
-					<p class="temperature"></p>
-					<p class="description"></p>
-					<div class="details">
-						<p>
-							<i class="fas fa-tint"></i> Humidity:
-							<span class="humidity"></span>%
-						</p>
-						<p>
-							<i class="fas fa-wind"></i> Wind: <span class="wind"></span> m/s
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
+        <div id="weather-display" class="weather-card hidden">
+            <div class="weather-main">
+                <div class="weather-icon-container">
+                    <i class="weather-icon"></i>
+                </div>
+                <div class="weather-primary">
+                    <h2 class="city-name"></h2>
+                    <p class="temperature"></p>
+                    <p class="description"></p>
+                </div>
+            </div>
+            
+            <div class="weather-details">
+                <div class="detail-item">
+                    <i class="fas fa-tint"></i>
+                    <div>
+                        <span class="detail-label">Humidity</span>
+                        <span class="humidity detail-value"></span>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-wind"></i>
+                    <div>
+                        <span class="detail-label">Wind</span>
+                        <span class="wind detail-value"></span>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-temperature-low"></i>
+                    <div>
+                        <span class="detail-label">Feels Like</span>
+                        <span class="feels-like detail-value"></span>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-compress-alt"></i>
+                    <div>
+                        <span class="detail-label">Pressure</span>
+                        <span class="pressure detail-value"></span>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="weather-footer">
+                <div class="forecast-container">
+                    <div class="forecast-item">
+                        <span class="forecast-day">Tomorrow</span>
+                        <i class="forecast-icon fas fa-sun"></i>
+                        <span class="forecast-temp">24°C</span>
+                    </div>
+                    <div class="forecast-item">
+                        <span class="forecast-day">Wed</span>
+                        <i class="forecast-icon fas fa-cloud-sun"></i>
+                        <span class="forecast-temp">22°C</span>
+                    </div>
+                    <div class="forecast-item">
+                        <span class="forecast-day">Thu</span>
+                        <i class="forecast-icon fas fa-cloud-showers-heavy"></i>
+                        <span class="forecast-temp">19°C</span>
+                    </div>
+                </div>
+            </div> -->
+            
+        </div>
+    </div>
 
-		<script src="js/api.js"></script>
-		<script src="js/storage.js"></script>
-		<script src="js/ui.js"></script>
-		<script src="./app.js"></script>
-	</body>
+    <script src="js/api.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="./app.js"></script>
+</body>
 </html>
