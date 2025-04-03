@@ -120,6 +120,10 @@ function setupEventListeners() {
 		const newTheme = toggleThemeUI();
 		saveTheme(newTheme);
 	});
+	document.getElementById("logout-button").addEventListener("click", () => {
+		logOut();
+		window.location.replace("login.html");
+	});
 
 	document.getElementById("location-button").addEventListener("click", () => {
 		navigator.geolocation.getCurrentPosition((position) => {
