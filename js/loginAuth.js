@@ -43,7 +43,7 @@ async function handleLogin(loginEmail, loginPassword) {
 
 	if (user) {
 		await logIn(loginEmail);
-		window.location.href = "/index.html";
+		window.location.replace("index.html");
 	} else {
 		alert("Invalid email or password");
 	}
