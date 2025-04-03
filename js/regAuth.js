@@ -48,10 +48,11 @@ registerForm.addEventListener("submit", async (event) => {
 		);
 		await logIn(registerEmail);
 		window.location.href = "/index.html";
+		alert("Registered successfully!");
 	} catch {
 		addUser(registerEmail, registerPassword, null, "light", null);
 		await logIn(registerEmail);
 		window.location.href = "/index.html";
+		alert("Registered successfully!");
 	}
-	alert("Registered successfully!");
 });
