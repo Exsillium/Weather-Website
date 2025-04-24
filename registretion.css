@@ -1,7 +1,7 @@
 :root {
 	--primary-color: #2196f3;
 	--secondary-color: #1976d2;
-	--background-color: #ffffff;
+	--background-color: #f8f9fa;
 	--text-color: #333333;
 	--card-bg: rgba(255, 255, 255, 0.9);
 	--border-radius: 8px;
@@ -117,15 +117,10 @@ button:hover {
 	height: 100%;
 	background: linear-gradient(
 		to bottom,
-		#87ceeb,
-		#add8e6
+		#add8e6,
+		var(--background-color)
 	); /* Sky blue gradient */
-	background: linear-gradient(
-		to bottom,
-		#87ceeb,
-		#add8e6
-	); /* Sky blue gradient */
-	background-color: var;
+
 	overflow: hidden; /* Hide parts of clouds moving off-screen */
 	z-index: -1; /* Place behind content */
 }
