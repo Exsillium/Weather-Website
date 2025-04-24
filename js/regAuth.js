@@ -1,27 +1,12 @@
-/*
-  user -> {
-    email:"example@gmail.com",
-    themw:"light",
-    lastSearch: {
-      city:"cairo"
-      lon:44,
-      lat:33,
-    },
-    location:{
-      lon:34,
-      lat:34,
-    }
-  }
-*/
 if (isAlreadyLogedIn()) {
 	window.location.href = "/index.html";
 }
 
-let users = getUsers();
 const registerForm = document.getElementById("register-form");
 
 registerForm.addEventListener("submit", async (event) => {
 	event.preventDefault();
+	let users = await getUsers();
 	const registerEmail = document.getElementById("register-email").value;
 	const registerPassword = document.getElementById("register-password").value;
 	if (!registerEmail || !registerPassword) {
@@ -32,25 +17,28 @@ registerForm.addEventListener("submit", async (event) => {
 		alert("password must be at least 8 characters");
 		return;
 	}
-	if (isAlreadyRegistered(registerEmail)) {
+	const registered = await isAlreadyRegistered(registerEmail);
+	if (registered) {
 		alert("Email is already in use");
 		window.location.href = "/login.html";
 		return;
 	}
 	try {
 		let userLocation = await saveAsyncUserLocation();
-		addUser(
+		console.log("userLocation:", userLocation);
+		await addUser(
 			registerEmail,
 			registerPassword,
 			userLocation,
 			"light",
 			userLocation
-		);
-		await logIn(registerEmail);
+		).then(async () => {
+			await logIn(registerEmail);
+		});
 		window.location.replace("index.html");
 		alert("Registered successfully!");
 	} catch {
-		addUser(registerEmail, registerPassword, null, "light", null);
+		await addUser(registerEmail, registerPassword, null, "light", null);
 		await logIn(registerEmail);
 		window.location.replace("index.html");
 		alert("Registered successfully!");

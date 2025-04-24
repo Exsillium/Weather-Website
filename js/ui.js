@@ -1,3 +1,18 @@
+function createRecentResults(results = []) {
+	const resultsUl = document.getElementById("recent-searches-list");
+	resultsUl.innerHTML = "";
+	results.forEach((result) => {
+		const li = document.createElement("li");
+		li.classList.add("search-result");
+		li.textContent = result;
+		li.addEventListener("click", (e) => {
+			const city = e.target.textContent;
+			handleWeatherSearch(city);
+		});
+		resultsUl.appendChild(li);
+	});
+}
+
 function createDropdown(cities) {
 	const select = document.getElementById("city-select");
 	console.log("creating dropdown");
@@ -24,14 +39,16 @@ function showWeather(data) {
 		data.weather[0].description;
 	weatherDisplay.querySelector(".humidity").textContent = data.main.humidity;
 	weatherDisplay.querySelector(".wind").textContent = data.wind.speed;
-	weatherDisplay.querySelector(".pressure").textContent = `${data.main.pressure} hpa`;
-	weatherDisplay.querySelector('.feels-like').textContent = `${Math.round(data.main.feels_like)}°C`;
-
-	
+	weatherDisplay.querySelector(
+		".pressure"
+	).textContent = `${data.main.pressure} hpa`;
+	weatherDisplay.querySelector(".feels-like").textContent = `${Math.round(
+		data.main.feels_like
+	)}°C`;
 
 	const icon = weatherDisplay.querySelector(".weather-icon");
 	icon.textContent = getWeatherIcon(data.weather[0].id);
-}	
+}
 
 function getWeatherIcon(conditionCode) {
 	if (conditionCode >= 200 && conditionCode < 300) return "⛈️";

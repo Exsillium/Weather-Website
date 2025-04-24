@@ -18,7 +18,6 @@ if (isAlreadyLogedIn()) {
 	window.location.href = "/index.html";
 }
 
-let users = getUsers();
 const loginForm = document.getElementById("login-form");
 
 loginForm.addEventListener("submit", async (event) => {
@@ -29,6 +28,7 @@ loginForm.addEventListener("submit", async (event) => {
 });
 
 async function handleLogin(loginEmail, loginPassword) {
+	let users = await getUsers();
 	if (!loginEmail || !loginPassword) {
 		alert("Enter a valid email and Password");
 		return;
@@ -38,7 +38,8 @@ async function handleLogin(loginEmail, loginPassword) {
 		return;
 	}
 	const user = users.find(
-		(user) => user.email === loginEmail && user.password === loginPassword
+		(user) =>
+			user.email === loginEmail && verifyPassword(loginPassword, user.password)
 	);
 
 	if (user) {

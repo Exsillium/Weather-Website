@@ -120,6 +120,12 @@ button:hover {
 		#87ceeb,
 		#add8e6
 	); /* Sky blue gradient */
+	background: linear-gradient(
+		to bottom,
+		#87ceeb,
+		#add8e6
+	); /* Sky blue gradient */
+	background-color: var;
 	overflow: hidden; /* Hide parts of clouds moving off-screen */
 	z-index: -1; /* Place behind content */
 }
