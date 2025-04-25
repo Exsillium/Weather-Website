@@ -5,5 +5,6 @@
 - **Login & Register**: Marwan Tarek
 - **Data Encryption & Hashing**: Belal Ahmed
 - **Storage Handling**: Belal Ahmed
+- **Recent Search**: Belal Ahmed
 - **UI Handling**: Abdallah Ramadan & Ahmed Elgmaizy
 - **Styling**: Abdallah Ramadan & Ahmed Elgmaizy
