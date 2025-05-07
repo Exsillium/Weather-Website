@@ -1,8 +1,5 @@
 
 # Weather Website
-
-![Weather App Banner](https://source.unsplash.com/1600x900/?weather,forecast)
-
 ## Overview
 
 A modern weather website that allows users to search for weather conditions in different cities using the OpenWeatherMap API. This responsive web application provides real-time weather data, including temperature, humidity, wind speed, and atmospheric pressure.
